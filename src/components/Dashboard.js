@@ -10,6 +10,8 @@ import {
 	doc
 } from 'firebase/firestore';
 
+import { getAuth, signOut } from 'firebase/auth';
+
 const DataTable = () => {
 	const [data, setData] = useState([]);
 	const [newData, setNewData] = useState('');
@@ -52,6 +54,20 @@ const DataTable = () => {
 	const handleEditChange = (item) => {
 		setEditData({ id: item.id, name: item.name });
 		setIsEditing(true); // Включаем режим редактирования
+	};
+
+	const handleSignOut = () => {
+		const auth = getAuth(); // Получаем экземпляр аутентификации
+
+		signOut(auth)
+			.then(() => {
+				// Выход успешно выполнен
+				console.log('Вы вышли из аккаунта');
+			})
+			.catch((error) => {
+				// Произошла ошибка при выходе
+				console.error('Ошибка при выходе:', error);
+			});
 	};
 
 	useEffect(() => {
@@ -98,6 +114,7 @@ const DataTable = () => {
 					))}
 				</tbody>
 			</table>
+			<button onClick={handleSignOut}>Sign Out</button>
 		</div>
 	);
 };
