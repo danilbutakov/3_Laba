@@ -45,7 +45,7 @@ const Auth = ({ setUser }) => {
 	return (
 		<div>
 			<form onSubmit={handleSubmit}>
-				{' '}
+				<div>{isLogin ? <h1>LogIn</h1> : <h1>Register</h1>}</div>{' '}
 				{/* Вызываем handleSubmit при отправке формы */}
 				<input
 					type='email' // Поле ввода для email
